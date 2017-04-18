@@ -49,5 +49,15 @@
       - consider your overall workloads and individual table volatily
       - consider data compression and index columnstore
   - 2 SQL Server instance configuration
+      - backup checksum enable (you should be enabled)
+      - backup compression is a good idea ( unless if you use TDE in versions before sql2016)
+      - cost threshold for parallelism (default value = 5, maybe change depends of your workloads, high values to OLTP workloads)
+      - max degree of parallelism (default = 0, use all the processor cores in the instance for individual query, ADVICE: for OLTP workloads set this with the number of the cores of NUMA node)
+      - max server memory (and think about compression and column index store)
+      - optimize ad hoc for workloads
+      - tempdb configuration
+      
   - 3 Operation system configuration (optimization)
   - 4 hardware and storage configuration
+
+refs.: https://www.sqlskills.com/blogs/jonathan/tuning-cost-threshold-for-parallelism-from-the-plan-cache/
