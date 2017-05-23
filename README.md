@@ -20,9 +20,19 @@
 Movimentação de FILEGROUPS;
 - 3 filegroups: PRIMARY, FG01INDEX e FG01LOGAPLC
   - PRIMARY: Tabelas de Negocio (Cluster + Heap) + Tabelas de Log sendo Expurgadas
-  - FG01INDEX: Todos Index Nonclustered ( verificar se nao há constraints associadas: SELECT NAME FROM sys.indexes WHERE name IN (SELECT NAME FROM sys.objects WHERE TYPE IN ('PK','UQ'))
-  - FG01LOGAPLC: Tabelas de Log de Aplicação (Cluster + NonCluster + Heap) * Alterar arquitetura de Replica (RAID)
+  - FG01INDEX: Todos Index Nonclustered ( verificar se nao há constraints associadas: 
+      
+      SELECT NAME FROM sys.indexes WHERE name IN (SELECT NAME FROM sys.objects WHERE TYPE IN ('PK','UQ'))
+  
+  - FG01LOGAPLC: Tabelas de Log de Aplicação (Cluster + NonCluster + Heap) * Alterar arquitetura de Replica (RAID)
   
+# atividade
+- expurgo tabelas historico com valores enviados por negocio
+- movimentação para filegroup de LOG
+- gerar scripts de DDL de noncluster indices (<> de PK e UQ)
+- dropar indexes noncluster
+- recriar indexes no filegroup INDEX. (seguir ordem de acesso aos indexes e cronometrar)
+
 ---------------------------------------------------
 # oltp workload I/O access patterns
   - frequent writes to data files and log files;
